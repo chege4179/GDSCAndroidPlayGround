@@ -93,6 +93,7 @@ fun AllPostsScreenContent(
                         modifier = Modifier.fillMaxSize()
                             .padding(it)
                     ) {
+
                         items(items = uiState.posts, key = { it.id }) { post ->
                             PostCard(
                                 post = post,

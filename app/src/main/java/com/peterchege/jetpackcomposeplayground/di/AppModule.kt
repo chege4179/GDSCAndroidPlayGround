@@ -24,7 +24,9 @@ interface AppModule {
 class AppModuleImpl(
     private val appContext: Context
 ): AppModule {
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json {
+        ignoreUnknownKeys = true
+    }
 
     override val apiService: ApiService by lazy {
         Retrofit.Builder()
