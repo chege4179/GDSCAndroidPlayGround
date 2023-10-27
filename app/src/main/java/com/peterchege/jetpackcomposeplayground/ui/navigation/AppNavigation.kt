@@ -23,11 +23,6 @@ fun AppNavigation(
     navController: NavHostController,
     appModule: AppModule
 ){
-    val viewModel = viewModel<AllPostsScreenViewModel>(
-        factory = viewModelFactory {
-            AllPostsScreenViewModel(appModule.postRepository)
-        }
-    )
     NavHost(
         navController =navController,
         startDestination = Screens.ALL_POST_SCREEN,
@@ -38,7 +33,10 @@ fun AppNavigation(
             AllPostsScreen(
                 viewModel = viewModel<AllPostsScreenViewModel>(
                     factory = viewModelFactory {
-                        AllPostsScreenViewModel(appModule.postRepository)
+                        AllPostsScreenViewModel(
+                            repository = appModule.postRepository,
+                            database = appModule.database,
+                        )
                     }
                 ),
                 navigateToPostScreen = {

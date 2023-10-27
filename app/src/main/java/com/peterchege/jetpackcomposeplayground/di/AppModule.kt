@@ -1,12 +1,14 @@
 package com.peterchege.jetpackcomposeplayground.di
 
 import android.content.Context
+import androidx.room.Room
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.peterchege.jetpackcomposeplayground.api.ApiService
 import com.peterchege.jetpackcomposeplayground.repository.PostRepository
 import com.peterchege.jetpackcomposeplayground.repository.PostRepositoryImpl
+import com.peterchege.jetpackcomposeplayground.room.database.AppDatabase
 import com.peterchege.jetpackcomposeplayground.util.Constants
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -17,6 +19,7 @@ import retrofit2.create
 
 interface AppModule {
     val apiService: ApiService
+    val database:AppDatabase
     val postRepository :PostRepository
 }
 
@@ -26,6 +29,16 @@ class AppModuleImpl(
 ): AppModule {
     private val json = Json {
         ignoreUnknownKeys = true
+    }
+
+    override val database: AppDatabase by lazy {
+        Room.databaseBuilder(
+            appContext,
+            AppDatabase::class.java,
+            "app.db",
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     override val apiService: ApiService by lazy {

@@ -6,7 +6,7 @@ import com.peterchege.jetpackcomposeplayground.api.safeApiCall
 import com.peterchege.jetpackcomposeplayground.util.NetworkResult
 
 class PostRepositoryImpl (
-    val apiService: ApiService,
+    val apiService: ApiService
 ): PostRepository {
     override suspend fun getAllPosts(): NetworkResult<List<Post>> {
         return safeApiCall { apiService.getAllPosts() }
